@@ -28,6 +28,46 @@ public class Menu {
   }
 
   private void showMenu(Customer customer, Account account) {
+
+    int selection = 0;
+
+    while ((selection != 4) && (customer.isAuthenticated())) {
+      System.out.println("======================================================");
+      System.out.println("Please select one of the options:");
+      System.out.println("1.Deposit");
+      System.out.println("2.Withdraw");
+      System.out.println("3.Show balance");
+      System.out.println("4.Exit");
+      System.out.println("======================================================");
+
+      selection = scanner.nextInt();
+
+      double amount = 0.0d;
+
+      switch (selection) {
+        case 1:
+          System.out.println("Please enter amount to deposit:");
+          amount = scanner.nextDouble();
+          account.deposit(amount);
+          break;
+        case 2:
+          System.out.println("Please enter amount to withdraw:");
+          amount = scanner.nextDouble();
+          account.withdraw(amount);
+          break;
+        case 3:
+          System.out.println("balance of account: " + account.getBalance());
+          break;
+        case 4:
+          Authenticator.logout(customer);
+          System.out.println("Thanks for using our system.");
+          break;
+        default:
+          System.out.println("Invalid selection.Please try again.");
+          break;
+      }
+
+    }
   }
 
   public Customer authenticateUser() {
