@@ -52,7 +52,19 @@ public class Account {
 
   }
 
-  public void withdraw(double amount) {
+  public void withdraw(double amount) throws AmountException {
+
+    if (amount < 0.0d) {
+      throw new AmountException("You cannot withdraw less than 0.0 or less USD.");
+    } else if (amount > getBalance()) {
+      throw new AmountException("You cannot withdraw more money than account balance.");
+    } else {
+      double newBalance = getBalance() - amount;
+      setBalance(newBalance);
+      DataSource.updateAccountBalance(getId(), newBalance);
+
+    }
+
   }
 
 }
